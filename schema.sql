@@ -15,11 +15,11 @@ CREATE TABLE employees (
 
 CREATE TABLE credentials (
   id int PRIMARY KEY,
-  employee_id int,
+  employee_id int UNIQUE,
   hashed_password varchar(255),
   salt varchar(50),
   session_token varchar(100),
-  session_expriy timestamp
+  session_expriy date
 );
 
 CREATE TABLE past_credentials (

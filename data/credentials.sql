@@ -1,0 +1,26 @@
+DELETE FROM past_credentials;
+DELETE FROM credentials;
+
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (1, 1, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '06-Aug-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (2, 2, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '26-Dec-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (3, 3, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '10-Apr-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (4, 4, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '13-Dec-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (5, 5, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '20-Mar-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (6, 6, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '27-Oct-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (7, 7, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '04-Feb-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (8, 8, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '03-Jul-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (9, 9, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '13-Mar-2021');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (10, 10, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '26-Mar-2021');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (11, 11, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '17-Feb-2021');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (12, 12, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '03-Jun-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (13, 13, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '19-Jul-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (14, 14, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '08-Dec-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (15, 15, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '18-Nov-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (16, 16, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '20-Aug-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (17, 17, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '25-Jul-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (18, 18, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '11-Mar-2021');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (19, 19, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '02-Jun-2020');
+INSERT INTO credentials (id, employee_id, hashed_password, salt, session_token, session_expriy) VALUES (20, 20, '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '24430f5018d8e1cbcbe91a50cc4b990f0b868510', '15-Aug-2020');
+
+@past_credentials.sql
+SELECT * FROM credentials;
