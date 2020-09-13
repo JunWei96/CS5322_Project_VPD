@@ -4,12 +4,12 @@ CREATE TABLE employees (
   job_id int,
   slug varchar(30) UNIQUE,
   full_name varchar(30),
-  date_of_birth timestamp,
+  date_of_birth date,
   address varchar(255),
   phone varchar(50),
   email varchar(50),
   salary int,
-  start_date timestamp,
+  start_date date,
   biography varchar(255)
 );
 
@@ -33,8 +33,8 @@ CREATE TABLE leaves (
   id int PRIMARY KEY,
   emp_id int,
   leave_type varchar(20) not null check (leave_type in ('mc', 'annual_leave', 'compassionate_leave')),
-  start_date timestamp,
-  end_date timestamp,
+  start_date date,
+  end_date date,
   status varchar(20) not null check (status in ('not_applied', 'applied', 'approved', 'rejected', 'obselete')),
   remark varchar(255)
 );
@@ -88,7 +88,6 @@ CREATE TABLE corporation_groups_employees (
 
 CREATE TABLE jobs (
   id int PRIMARY KEY,
-  corporation_group_id int,
   job_title varchar(100),
   min_salary int,
   max_salary int
@@ -132,8 +131,6 @@ ALTER TABLE corporation_groups ADD FOREIGN KEY (country) REFERENCES countries (i
 ALTER TABLE corporation_groups_employees ADD FOREIGN KEY (employee_id) REFERENCES employees (id);
 
 ALTER TABLE corporation_groups_employees ADD FOREIGN KEY (corporation_group_id) REFERENCES corporation_groups (id);
-
-ALTER TABLE jobs ADD FOREIGN KEY (corporation_group_id) REFERENCES corporation_groups (id);
 
 ALTER TABLE job_history ADD FOREIGN KEY (employee_id) REFERENCES employees (id);
 
