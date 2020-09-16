@@ -2,6 +2,7 @@ CREATE TABLE employees (
   id int PRIMARY KEY,
   manager_id int,
   job_id int,
+  corporation_group_id int,
   slug varchar(30) UNIQUE,
   full_name varchar(30),
   date_of_birth date,
@@ -67,23 +68,20 @@ CREATE TABLE countries (
   country_code varchar(10)
 );
 
-CREATE TABLE corporations (
+CREATE TABLE locations (
   id int PRIMARY KEY,
-  name varchar(100)
+  country_id int,
+  address varchar(255),
+  postal_code varchar(100),
+  city varchar(100)
 );
 
 CREATE TABLE corporation_groups (
   id int PRIMARY KEY,
-  corporation_id int,
   parent_group_id int,
-  country int,
+  location_id int,
   name varchar(100),
-  adresss varchar(255)
-);
-
-CREATE TABLE corporation_groups_employees (
-  employee_id int,
-  corporation_group_id int
+  group_type varchar(20) DEFAULT 'normal' check (group_type in ('normal', 'hr', 'auditor', 'finance'))
 );
 
 CREATE TABLE jobs (
@@ -96,13 +94,15 @@ CREATE TABLE jobs (
 CREATE TABLE job_history (
   employee_id int,
   job_id int,
-  start_date timestamp,
-  end_date timestamp
+  start_date date,
+  end_date date
 );
 
 ALTER TABLE employees ADD FOREIGN KEY (manager_id) REFERENCES employees (id);
 
 ALTER TABLE employees ADD FOREIGN KEY (job_id) REFERENCES jobs (id);
+
+ALTER TABLE employees ADD FOREIGN KEY (corporation_group_id) REFERENCES corporation_groups (id);
 
 ALTER TABLE credentials ADD FOREIGN KEY (employee_id) REFERENCES employees (id);
 
@@ -122,15 +122,11 @@ ALTER TABLE claims ADD FOREIGN KEY (finance_approved_by) REFERENCES employees (i
 
 ALTER TABLE payslips ADD FOREIGN KEY (recipient) REFERENCES employees (id);
 
-ALTER TABLE corporation_groups ADD FOREIGN KEY (corporation_id) REFERENCES corporations (id);
+ALTER TABLE locations ADD FOREIGN KEY (country_id) REFERENCES countries (id);
 
 ALTER TABLE corporation_groups ADD FOREIGN KEY (parent_group_id) REFERENCES corporation_groups (id);
 
-ALTER TABLE corporation_groups ADD FOREIGN KEY (country) REFERENCES countries (id);
-
-ALTER TABLE corporation_groups_employees ADD FOREIGN KEY (employee_id) REFERENCES employees (id);
-
-ALTER TABLE corporation_groups_employees ADD FOREIGN KEY (corporation_group_id) REFERENCES corporation_groups (id);
+ALTER TABLE corporation_groups ADD FOREIGN KEY (location_id) REFERENCES locations (id);
 
 ALTER TABLE job_history ADD FOREIGN KEY (employee_id) REFERENCES employees (id);
 

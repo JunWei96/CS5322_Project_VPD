@@ -1,25 +1,25 @@
 DELETE FROM corporation_groups;
 
--- Oracle in SG
-INSERT INTO corporation_groups (id, corporation_id, country, name, adresss) 
-    VALUES (1, 1, 1, 'HR', '4080  Walnut Street');
-INSERT INTO corporation_groups (id, corporation_id, country, name, adresss) 
-    VALUES (2, 1, 1, 'Finance', '4080  Walnut Street');
-INSERT INTO corporation_groups (id, corporation_id, country, name, adresss) 
-    VALUES (3, 1, 1, 'Auditor', '4080  Walnut Street');
-INSERT INTO corporation_groups (id, corporation_id, country, name, adresss) 
-    VALUES (4, 1, 1, 'Software Development', '4080  Walnut Street');
-INSERT INTO corporation_groups (id, corporation_id, country, name, adresss) 
-    VALUES (5, 1, 1, 'Research', '4080  Walnut Street');
+-- Group at location in SG
+INSERT INTO corporation_groups (id, location_id, name, group_type) 
+    VALUES (1, 1, 'HR', 'hr');
+INSERT INTO corporation_groups (id, location_id, name, group_type)
+    VALUES (2, 1, 'Finance', 'finance');
+INSERT INTO corporation_groups (id, location_id, name, group_type) 
+    VALUES (3, 1, 'Auditor', 'auditor');
+INSERT INTO corporation_groups (id, location_id, name) 
+    VALUES (4, 1, 'Software Development');
+INSERT INTO corporation_groups (id, location_id, name) 
+    VALUES (5, 1, 'Research');
 
--- Oracle in US
-INSERT INTO corporation_groups (id, corporation_id, country, name, adresss) 
-    VALUES (6, 1, 1, 'HR', '3400  Canis Heights Drive');
-INSERT INTO corporation_groups (id, corporation_id, country, name, adresss) 
-    VALUES (7, 1, 2, 'Auditor', '3400  Canis Heights Drive');
-INSERT INTO corporation_groups (id, corporation_id, country, name, adresss) 
-    VALUES (8, 1, 2, 'Finance', '3400  Canis Heights Drive');
-INSERT INTO corporation_groups (id, corporation_id, country, name, adresss) 
-    VALUES (9, 1, 1, 'Research', '3400  Canis Heights Drive');
+-- Group at location in US
+INSERT INTO corporation_groups (id, location_id, name, group_type) 
+    VALUES (6, 2, 'HR', 'hr');
+INSERT INTO corporation_groups (id, location_id, name, group_type) 
+    VALUES (7, 2, 'Auditor', 'auditor');
+INSERT INTO corporation_groups (id, location_id, name, group_type) 
+    VALUES (8, 2, 'Finance', 'finance');
+INSERT INTO corporation_groups (id, location_id, name) 
+    VALUES (9, 2, 'Research');
 
 SELECT * FROM corporation_groups;

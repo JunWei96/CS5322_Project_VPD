@@ -1,9 +1,8 @@
 @countries.sql
-@corporations.sql
+@locations.sql
 @jobs.sql
 @corporation_groups.sql
 @employees.sql
-@corporation_groups_employees.sql
 @job_history.sql
 @evaluations.sql
 @leaves.sql
