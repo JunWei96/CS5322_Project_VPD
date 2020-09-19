@@ -17,7 +17,7 @@ DELETE SYSTEM.claims WHERE id = 42;
 -- RESTORE deleted tuple.
 INSERT INTO SYSTEM.claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (42,1,14,17,5826);
 
--- Expected: Should not be able to update.delete other employee's records.
+-- Expected: Should not be able to update/delete other employee's records.
 UPDATE SYSTEM.claims SET 
     amount = 10000
     WHERE id = 2;
