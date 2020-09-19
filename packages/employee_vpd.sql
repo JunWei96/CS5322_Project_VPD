@@ -10,6 +10,7 @@ CREATE OR REPLACE PACKAGE BODY EMPLOYEE_VPD IS
         group_type VARCHAR2(20);
         location_id INT;
         country_id INT;
+        is_manager INT;
     BEGIN
         sessionUser := SYS_CONTEXT('USERENV','SESSION_USER');
         IF (sessionUser = 'SYSTEM') THEN
@@ -23,6 +24,16 @@ CREATE OR REPLACE PACKAGE BODY EMPLOYEE_VPD IS
                 WHERE slug = sessionUser;
         EXCEPTION WHEN NO_DATA_FOUND THEN
             RAISE_APPLICATION_ERROR(-20000, 'Unauthorized employee.');
+        END;
+        
+        BEGIN    
+            SELECT 1 
+                INTO is_manager 
+                FROM employees 
+                WHERE manager_id = employee_id
+                FETCH NEXT 1 ROWS ONLY;
+        EXCEPTION WHEN NO_DATA_FOUND THEN
+            is_manager := 0;
         END;
         
         SELECT group_type, location_id
@@ -39,6 +50,7 @@ CREATE OR REPLACE PACKAGE BODY EMPLOYEE_VPD IS
         DBMS_SESSION.set_context('EMPLOYEE_MGMT', 'GROUP_TYPE', group_type);
         DBMS_SESSION.set_context('EMPLOYEE_MGMT', 'LOCATION_ID', location_id);
         DBMS_SESSION.set_context('EMPLOYEE_MGMT', 'COUNTRY_ID', country_id);
+        DBMS_SESSION.set_context('EMPLOYEE_MGMT', 'IS_MANAGER', is_manager);
     END set_context;
 END EMPLOYEE_VPD;
 /
