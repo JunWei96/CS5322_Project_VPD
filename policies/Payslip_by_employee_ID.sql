@@ -14,25 +14,9 @@ BEGIN
     RETURN '';
     END IF;
         
-    BEGIN
-        SELECT id, corporation_group_id 
-            INTO employee_id, corp_group_id 
-            FROM employees 
-            WHERE slug = sessionUser;
-        EXCEPTION WHEN NO_DATA_FOUND THEN
-            employee_id := NULL;
-            return '1=0';
-    END;
-         
-         
-    SELECT group_type, location_id
-        INTO group_type, location_id
-        FROM corporation_groups 
-        WHERE id = corp_group_id;
-    SELECT country_id
-        INTO country_id
-        FROM locations
-        WHERE id = location_id;
+    employee_id := SYS_CONTEXT('EMPLOYEE_MGMT', 'EMP_ID');
+    group_type := SYS_CONTEXT('EMPLOYEE_MGMT', 'GROUP_TYPE');
+    country_id := SYS_CONTEXT('EMPLOYEE_MGMT', 'COUNTRY_ID');
          
     IF (group_type = 'hr') THEN
         return 'EXISTS (
