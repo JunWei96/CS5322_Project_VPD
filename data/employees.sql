@@ -36,6 +36,45 @@ GRANT SELECT ON corporation_groups TO NON_SYSTEM;
 GRANT SELECT ON jobs TO NON_SYSTEM;
 GRANT SELECT ON job_history TO NON_SYSTEM;
 
+GRANT UPDATE ON employees TO NON_SYSTEM;
+GRANT UPDATE ON credentials TO NON_SYSTEM;
+GRANT UPDATE ON past_credentials TO NON_SYSTEM;
+GRANT UPDATE ON leaves TO NON_SYSTEM;
+GRANT UPDATE ON evaluations TO NON_SYSTEM;
+GRANT UPDATE ON claims TO NON_SYSTEM;
+GRANT UPDATE ON payslips TO NON_SYSTEM;
+GRANT UPDATE ON countries TO NON_SYSTEM;
+GRANT UPDATE ON locations TO NON_SYSTEM;
+GRANT UPDATE ON corporation_groups TO NON_SYSTEM;
+GRANT UPDATE ON jobs TO NON_SYSTEM;
+GRANT UPDATE ON job_history TO NON_SYSTEM;
+
+GRANT DELETE ON employees TO NON_SYSTEM;
+GRANT DELETE ON credentials TO NON_SYSTEM;
+GRANT DELETE ON past_credentials TO NON_SYSTEM;
+GRANT DELETE ON leaves TO NON_SYSTEM;
+GRANT DELETE ON evaluations TO NON_SYSTEM;
+GRANT DELETE ON claims TO NON_SYSTEM;
+GRANT DELETE ON payslips TO NON_SYSTEM;
+GRANT DELETE ON countries TO NON_SYSTEM;
+GRANT DELETE ON locations TO NON_SYSTEM;
+GRANT DELETE ON corporation_groups TO NON_SYSTEM;
+GRANT DELETE ON jobs TO NON_SYSTEM;
+GRANT DELETE ON job_history TO NON_SYSTEM;
+
+GRANT INSERT ON employees TO NON_SYSTEM;
+GRANT INSERT ON credentials TO NON_SYSTEM;
+GRANT INSERT ON past_credentials TO NON_SYSTEM;
+GRANT INSERT ON leaves TO NON_SYSTEM;
+GRANT INSERT ON evaluations TO NON_SYSTEM;
+GRANT INSERT ON claims TO NON_SYSTEM;
+GRANT INSERT ON payslips TO NON_SYSTEM;
+GRANT INSERT ON countries TO NON_SYSTEM;
+GRANT INSERT ON locations TO NON_SYSTEM;
+GRANT INSERT ON corporation_groups TO NON_SYSTEM;
+GRANT INSERT ON jobs TO NON_SYSTEM;
+GRANT INSERT ON job_history TO NON_SYSTEM;
+
 INSERT INTO employees (id,manager_id,job_id,corporation_group_id,slug,full_name,date_of_birth,address,phone,email,salary,start_date,biography) VALUES (1,null,4,4,'OWEN','Owen X. Richmond','30-Dec-90','105-5697 Eget Road','095-556-8612','owen@gmail.com',8846,'19-Nov-20','fringilla mi lacinia mattis. Integer eu lacus. Quisque imperdiet, erat');
 CREATE USER OWEN IDENTIFIED BY OWEN;
 GRANT NON_SYSTEM TO OWEN;
