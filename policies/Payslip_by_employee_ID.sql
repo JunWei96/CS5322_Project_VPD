@@ -18,7 +18,7 @@ BEGIN
     group_type := SYS_CONTEXT('EMPLOYEE_MGMT', 'GROUP_TYPE');
     country_id := SYS_CONTEXT('EMPLOYEE_MGMT', 'COUNTRY_ID');
          
-    IF (group_type = 'hr') THEN
+    IF (group_type = 'hr' OR group_type = 'finance') THEN
         return 'EXISTS (
             SELECT 1
             FROM employees E
@@ -26,16 +26,9 @@ BEGIN
             INNER JOIN locations LOC ON LOC.id = CG.location_id
             WHERE E.id = recipient AND LOC.country_id = ' || country_id || ' )';
     ELSE
-        IF (group_type = 'finance') THEN
-        return 'EXISTS (
-            SELECT 1
-            FROM employees E
-            INNER JOIN corporation_groups CG ON E.corporation_group_id = CG.id 
-            INNER JOIN locations LOC ON LOC.id = CG.location_id
-            WHERE E.id = recipient AND LOC.country_id = ' || country_id || ' )';
-        ELSE
-        return 'recipient = ' || employee_id;
-        END IF;
+        condition:= 'recipient = ' || employee_id;
+        
+        return condition;
     END IF;
 END Payslip_by_employee_ID;
 
@@ -43,16 +36,28 @@ END Payslip_by_employee_ID;
 BEGIN
 	DBMS_RLS.ADD_POLICY (
 		object_name	=>	'payslips',
-		policy_name	=>	'Payslip_by_employee_ID_policy_base',
+		policy_name	=>	'Read_Payslip_by_employee_ID_policy',
 		policy_function	=>	'Payslip_by_employee_ID',
-        statement_types => 'SELECT',
-        update_check=> 'true');
+        statement_types => 'SELECT');
 END;
 
 BEGIN
 	DBMS_RLS.ADD_POLICY (
 		object_name	=>	'payslips',
-		policy_name	=>	'Payslip_by_employee_ID_policy_hr',
+		policy_name	=>	'SELECT_UPDATE_Payslip_by_employee_ID_policy',
 		policy_function	=>	'Payslip_by_employee_ID',
-        update_check=> 'true');
+        statement_types => 'SELECT,UPDATE');
+END;
+
+/
+BEGIN
+	DBMS_RLS.DROP_POLICY (
+        object_name => 'payslips',
+		policy_name	=>	'SELECT_UPDATE_Payslip_by_employee_ID_policy');
+END;
+
+BEGIN
+	DBMS_RLS.DROP_POLICY (
+        object_name => 'payslips',
+		policy_name	=>	'READ_Payslip_by_employee_ID_policy');
 END;
