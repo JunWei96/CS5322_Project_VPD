@@ -87,7 +87,3 @@ BEGIN
         policy_function => 'update_delete_claims_by_corporation_group',
         statement_types => 'UPDATE,DELETE');
 END;
-
-SELECT * FROM claims WHERE creator = 8;
-
-SELECT * FROM employees WHERE corporation_group_id = 9;
