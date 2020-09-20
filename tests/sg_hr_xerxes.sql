@@ -1,7 +1,6 @@
 -- This test file is for the user XERXES with password of XERXES.
 -- XERXES is a HR stationed in Singapore.
-SET ROLE NON_SYSTEM;
-SET ROLE HR;
+SET ROLE NON_SYSTEM, HR;
 
 -- Expected: Should only return the claims from all the employees in Singapore.
 SELECT C.id, C.creator, E.manager_id, C.hr_approved_by, C.finance_approved_by, C.amount, C.remark
