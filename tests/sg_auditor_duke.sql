@@ -6,7 +6,7 @@ SET ROLE NON_SYSTEM;
 SELECT C.id, C.creator, E.manager_id, C.hr_approved_by, C.finance_approved_by, C.amount, C.remark
     FROM SYSTEM.claims C 
     INNER JOIN SYSTEM.employees E 
-    ON C.creator = E.id AND C.creator = 4;
+    ON C.creator = E.id;
 
 -- Expected: Should be able to update/delete its own claims.
 UPDATE SYSTEM.claims SET 
