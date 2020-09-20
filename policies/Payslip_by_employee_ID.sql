@@ -30,9 +30,8 @@ BEGIN
         return condition;
     END IF;
 END read_Payslip_by_employee_ID;
-
 /
-create or replace NONEDITIONABLE FUNCTION update_Payslip_by_employee_ID(p_schema IN VARCHAR2, p_obj IN VARCHAR2)
+create or replace FUNCTION update_Payslip_by_employee_ID(p_schema IN VARCHAR2, p_obj IN VARCHAR2)
     RETURN VARCHAR2 AS 
     condition VARCHAR2 (255);
     sessionUser VARCHAR2 (30);
@@ -60,42 +59,37 @@ BEGIN
             INNER JOIN locations LOC ON LOC.id = CG.location_id
             WHERE E.id = recipient AND LOC.country_id = ' || country_id || ' )';
     ELSE
-          RETURN 'EXISTS(
-            SELECT * FROM EMPLOYEES
-            WHERE 1 = 2)';
+        condition:= 'recipient = ' || employee_id;
+        return condition;
     END IF;
 END update_Payslip_by_employee_ID;
-
-
-
-
+/
+BEGIN
+	DBMS_RLS.DROP_POLICY (
+        object_name => 'payslips',
+		policy_name	=>	'read_Payslip_by_employee_ID_policy');
+END;
+/
+BEGIN
+	DBMS_RLS.DROP_POLICY (
+        object_name => 'payslips',
+		policy_name	=>	'update_Payslip_by_employee_ID_policy');
+END;
 /
 BEGIN
 	DBMS_RLS.ADD_POLICY (
 		object_name	=>	'payslips',
-		policy_name	=>	'Read_Payslip_by_employee_ID_policy',
+		policy_name	=>	'read_Payslip_by_employee_ID_policy',
 		policy_function	=>	'read_Payslip_by_employee_ID',
         statement_types => 'SELECT');
 END;
-
+/
 BEGIN
 	DBMS_RLS.ADD_POLICY (
 		object_name	=>	'payslips',
-		policy_name	=>	'UPDATE_Payslip_by_employee_ID_policy',
+		policy_name	=>	'update_Payslip_by_employee_ID_policy',
 		policy_function	=>	'update_Payslip_by_employee_ID',
         statement_types => 'UPDATE');
 END;
-/
 
-/
-BEGIN
-	DBMS_RLS.DROP_POLICY (
-        object_name => 'payslips',
-		policy_name	=>	'SELECT_UPDATE_Payslip_by_employee_ID_policy');
-END;
 
-BEGIN
-	DBMS_RLS.DROP_POLICY (
-        object_name => 'payslips',
-		policy_name	=>	'READ_Payslip_by_employee_ID_policy');
-END;
