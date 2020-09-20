@@ -1,54 +1,49 @@
--- This test file is for the user OWEN with password of OWEN.
--- OWEN is a manager in Software Development stationed in Singapore.
--- Software Development belongs to a normal group type in the HR system.
-SET ROLE NON_SYSTEM, MANAGER;
+-- This test file is for the user STAFFORD with password of STAFFORD.
+-- STAFFORD is in finance stationed in Singapore.
+SET ROLE NON_SYSTEM;
 
--- Expected: Should only return OWEN's claims plus its subordinate's claims.
+-- Expected: Should only return the claims from all the employees in Singapore.
 DECLARE
     counter INT;
 BEGIN
     SELECT COUNT(*)
         INTO counter
-        FROM SYSTEM.claims C
+        FROM SYSTEM.claims C 
         INNER JOIN SYSTEM.employees E 
         ON C.creator = E.id;
-    IF counter != 28 THEN
+    IF counter != 75 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Incorrect number of employees.');
     END IF;
 END;
 /
--- Expected: Should be able to update/delete its own claims.
+-- Expected: Should be able to update/delete claims from employee in Singapore.
 DECLARE
     counter INT;
 BEGIN
     UPDATE SYSTEM.claims SET 
         amount = 10000
         WHERE id = 42;
-    counter := SQL%rowcount;
     IF counter != 1 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Should update 1 row');
     END IF;
     DELETE SYSTEM.claims WHERE id = 42;
-    counter := SQL%rowcount;
     IF counter != 1 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Should delete 1 row');
     END IF;
     ROLLBACK;
 END;
 /
--- Expected: Should not be able to update/delete other employee's records.
+-- Expected: Should not be able to update/delete employee's from other country.
 DECLARE
     counter INT;
 BEGIN
     UPDATE SYSTEM.claims SET 
         amount = 10000
-        WHERE id = 2;
-    counter := SQL%rowcount;
+        WHERE id = 44;
     IF counter != 0 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Should update 0 row');
     END IF;
-    DELETE SYSTEM.claims WHERE id = 2;
-    counter := SQL%rowcount;
+    DELETE SYSTEM.claims WHERE id = 44;
     IF counter != 0 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Should delete 0 row');
     END IF;

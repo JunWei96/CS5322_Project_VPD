@@ -36,15 +36,19 @@ CREATE OR REPLACE PACKAGE BODY EMPLOYEE_VPD IS
             is_manager := 0;
         END;
         
-        SELECT group_type, location_id
-            INTO group_type, location_id
-            FROM corporation_groups 
-            WHERE id = corp_group_id;
-        SELECT country_id
-            INTO country_id
-            FROM locations
-            WHERE id = location_id;
-        
+        BEGIN
+            SELECT group_type, location_id
+                INTO group_type, location_id
+                FROM corporation_groups 
+                WHERE id = corp_group_id;
+            SELECT country_id
+                INTO country_id
+                FROM locations
+                WHERE id = location_id;
+        EXCEPTION WHEN NO_DATA_FOUND THEN
+            RAISE_APPLICATION_ERROR(-20000, 'Essential data is not found.');
+        END;
+
         DBMS_SESSION.set_context('EMPLOYEE_MGMT', 'EMP_ID', employee_id);
         DBMS_SESSION.set_context('EMPLOYEE_MGMT', 'CORP_GROUP_ID', corp_group_id);
         DBMS_SESSION.set_context('EMPLOYEE_MGMT', 'GROUP_TYPE', group_type);

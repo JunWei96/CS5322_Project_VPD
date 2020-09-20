@@ -1,18 +1,17 @@
--- This test file is for the user OWEN with password of OWEN.
--- OWEN is a manager in Software Development stationed in Singapore.
--- Software Development belongs to a normal group type in the HR system.
-SET ROLE NON_SYSTEM, MANAGER;
+-- This test file is for the user DUKE with password of DUKE.
+-- DUKE is an auditor stationed in Singapore.
+SET ROLE NON_SYSTEM;
 
--- Expected: Should only return OWEN's claims plus its subordinate's claims.
+-- Expected: Should only return the claims from all the employees in Singapore.
 DECLARE
     counter INT;
 BEGIN
     SELECT COUNT(*)
         INTO counter
-        FROM SYSTEM.claims C
+        FROM SYSTEM.claims C 
         INNER JOIN SYSTEM.employees E 
         ON C.creator = E.id;
-    IF counter != 28 THEN
+    IF counter != 75 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Incorrect number of employees.');
     END IF;
 END;
@@ -23,12 +22,12 @@ DECLARE
 BEGIN
     UPDATE SYSTEM.claims SET 
         amount = 10000
-        WHERE id = 42;
+        WHERE id = 17;
     counter := SQL%rowcount;
     IF counter != 1 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Should update 1 row');
     END IF;
-    DELETE SYSTEM.claims WHERE id = 42;
+    DELETE SYSTEM.claims WHERE id = 17;
     counter := SQL%rowcount;
     IF counter != 1 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Should delete 1 row');
