@@ -3,23 +3,50 @@
 SET ROLE NON_SYSTEM;
 
 -- Expected: Should only return the claims from all the employees in Singapore.
-SELECT C.id, C.creator, E.manager_id, C.hr_approved_by, C.finance_approved_by, C.amount, C.remark
-    FROM SYSTEM.claims C 
-    INNER JOIN SYSTEM.employees E 
-    ON C.creator = E.id;
-
+DECLARE
+    counter INT;
+BEGIN
+    SELECT COUNT(*)
+        INTO counter
+        FROM SYSTEM.claims C 
+        INNER JOIN SYSTEM.employees E 
+        ON C.creator = E.id;
+    IF counter != 75 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Incorrect number of employees.');
+    END IF;
+END;
+/
 -- Expected: Should be able to update/delete claims from employee in Singapore.
-UPDATE SYSTEM.claims SET 
-    amount = 10000
-    WHERE id = 42;
-DELETE SYSTEM.claims WHERE id = 42;
--- RESTORE deleted tuple.
-INSERT INTO SYSTEM.claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (42,1,14,17,5826);
-
+DECLARE
+    counter INT;
+BEGIN
+    UPDATE SYSTEM.claims SET 
+        amount = 10000
+        WHERE id = 42;
+    IF counter != 1 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Should update 1 row');
+    END IF;
+    DELETE SYSTEM.claims WHERE id = 42;
+    IF counter != 1 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Should delete 1 row');
+    END IF;
+    ROLLBACK;
+END;
+/
 -- Expected: Should not be able to update/delete employee's from other country.
-UPDATE SYSTEM.claims SET 
-    amount = 10000
-    WHERE id = 44;
-DELETE SYSTEM.claims WHERE id = 44;
-
+DECLARE
+    counter INT;
+BEGIN
+    UPDATE SYSTEM.claims SET 
+        amount = 10000
+        WHERE id = 44;
+    IF counter != 0 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Should update 0 row');
+    END IF;
+    DELETE SYSTEM.claims WHERE id = 44;
+    IF counter != 0 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Should delete 0 row');
+    END IF;
+END;
+/
 ROLLBACK;
