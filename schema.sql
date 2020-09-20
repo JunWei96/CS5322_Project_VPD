@@ -6,11 +6,15 @@ CREATE TABLE employees (
   slug varchar(30) UNIQUE,
   full_name varchar(30),
   date_of_birth date,
+  email varchar(50),
+  start_date date
+);
+
+CREATE TABLE employees_sensitive_data (
+  id int PRIMARY KEY,
   address varchar(255),
   phone varchar(50),
-  email varchar(50),
   salary int,
-  start_date date,
   biography varchar(255)
 );
 
@@ -103,6 +107,8 @@ ALTER TABLE employees ADD FOREIGN KEY (manager_id) REFERENCES employees (id);
 ALTER TABLE employees ADD FOREIGN KEY (job_id) REFERENCES jobs (id);
 
 ALTER TABLE employees ADD FOREIGN KEY (corporation_group_id) REFERENCES corporation_groups (id);
+
+ALTER TABLE employees_sensitive_data ADD FOREIGN KEY (id) REFERENCES employees (id);
 
 ALTER TABLE credentials ADD FOREIGN KEY (employee_id) REFERENCES employees (id);
 
