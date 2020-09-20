@@ -1,9 +1,18 @@
--- This test file is for the user OWEN with password of OWEN.
--- OWEN is a manager in Software Development stationed in Singapore.
--- Software Development belongs to a normal group type in the HR system.
-SET ROLE NON_SYSTEM, MANAGER;
+-- This test file is for the user DUKE with password of DUKE.
+-- DUKE is an auditor stationed in Singapore.
+SET ROLE NON_SYSTEM;
 
--- Expected: OWEN Should not be able to update/delete its own payslip.
+-- Expected: Should only return the payslip from all the employees in Singapore.
+DECLARE
+    counter INT;
+BEGIN
+    SELECT COUNT(*) INTO counter FROM SYSTEM.payslips;
+    IF counter != 58 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Incorrect number of employees.');
+    END IF;
+END;
+/
+-- Expected: DUKE Should not be able to update/delete any payslip.
 DECLARE
     counter INT;
 BEGIN
