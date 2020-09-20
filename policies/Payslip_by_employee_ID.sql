@@ -66,23 +66,7 @@ BEGIN
     END IF;
 END update_Payslip_by_employee_ID;
 
-/
-create or replace NONEDITIONABLE FUNCTION delete_Payslip_by_employee_ID(v_schema VARCHAR2, v_bj VARCHAR2)
-RETURN VARCHAR2 AS
-    session_user VARCHAR2(30);
-BEGIN
-    session_user := SYS_CONTEXT('USERENV', 'SESSION_USER');
 
-    IF (session_user = 'SYSTEM') THEN
-        RETURN '';
-    END IF;
-
-
-    RETURN 'EXISTS(
-            SELECT * FROM EMPLOYEES
-            WHERE 1 = 2)';
-
-END delete_Payslip_by_employee_ID;
 
 
 /
@@ -102,13 +86,6 @@ BEGIN
         statement_types => 'UPDATE');
 END;
 /
-BEGIN
-	DBMS_RLS.ADD_POLICY (
-		object_name	=>	'payslips',
-		policy_name	=>	'DETELE_Payslip_by_employee_ID_policy',
-		policy_function	=>	'DETELE_Payslip_by_employee_ID',
-        statement_types => 'UPDATE');
-END;
 
 /
 BEGIN
