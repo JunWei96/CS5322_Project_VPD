@@ -22,4 +22,4 @@ UPDATE SYSTEM.claims SET
     WHERE id = 2;
 DELETE SYSTEM.claims WHERE id = 2;
 
-COMMIT;
+ROLLBACK;

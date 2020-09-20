@@ -2,6 +2,7 @@
 -- OWEN is a manager in Software Development stationed in Singapore.
 -- Software Development belongs to a normal group type in the HR system.
 SET ROLE NON_SYSTEM;
+SET ROLE MANAGER;
 
 -- Expected: Should only return OWEN's claims plus its subordinate's claims.
 SELECT C.id, C.creator, E.manager_id, C.hr_approved_by, C.finance_approved_by, C.amount, C.remark
@@ -23,4 +24,4 @@ UPDATE SYSTEM.claims SET
     WHERE id = 2;
 DELETE SYSTEM.claims WHERE id = 2;
 
-COMMIT;
+ROLLBACK;

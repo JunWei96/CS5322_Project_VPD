@@ -72,15 +72,21 @@ BEGIN
     DBMS_RLS.DROP_POLICY(
         object_name => 'claims',
         policy_name => 'read_claims_by_corporation_group_policy');
+END;
+/
+BEGIN
+    DBMS_RLS.DROP_POLICY(
+        object_name => 'claims',
+        policy_name => 'update_delete_claims_by_corporation_group_policy');
+END;
+/
+BEGIN
     DBMS_RLS.ADD_POLICY(
         object_name => 'claims',
         policy_name => 'read_claims_by_corporation_group_policy',
         policy_function => 'read_claims_by_corporation_group',
         statement_types => 'SELECT');
 
-    DBMS_RLS.DROP_POLICY(
-        object_name => 'claims',
-        policy_name => 'update_delete_claims_by_corporation_group_policy');
     DBMS_RLS.ADD_POLICY(
         object_name => 'claims',
         policy_name => 'update_delete_claims_by_corporation_group_policy',
