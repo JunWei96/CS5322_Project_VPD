@@ -3,55 +3,81 @@
 -- Software Development belongs to a normal group type in the HR system.
 SET ROLE NON_SYSTEM, MANAGER;
 
--- Expected: Should only return OWEN's data plus its subordinate's data.
+-- Expected: Should return nothing.
 DECLARE
     counter INT;
 BEGIN
-    SELECT COUNT('id')
-        INTO counter
-        FROM SYSTEM.credentials C
-        INNER JOIN SYSTEM.employees E 
-        ON C.employee_id = E.id;
-    IF counter != 5 THEN
+    SELECT COUNT(*) INTO counter FROM SYSTEM.credentials;
+    IF counter != 0 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Incorrect number of employees.');
     END IF;
 END;
 /
--- Expected: Should not be able to update/delete other employee's salary.
+-- Expected: Should return nothing.
 DECLARE
     counter INT;
 BEGIN
-    UPDATE SYSTEM.employees_sensitive_data SET 
-        salary = 10000
-        WHERE id = 8;
-    counter := SQL%rowcount;
+    SELECT COUNT(*) INTO counter FROM SYSTEM.past_credentials;
     IF counter != 0 THEN
-        RAISE_APPLICATION_ERROR(-20000, 'Should update 0 row');
-    END IF;
-    DELETE SYSTEM.employees_sensitive_data WHERE id = 8;
-    counter := SQL%rowcount;
-    IF counter != 0 THEN
-        RAISE_APPLICATION_ERROR(-20000, 'Should delete 0 row');
+        RAISE_APPLICATION_ERROR(-20000, 'Incorrect number of employees.');
     END IF;
 END;
 /
-ROLLBACK;
--- Expected: Should not be able to update/delete his own salary.
+-- Expected: Should not be able to update/delete data for others.
 DECLARE
     counter INT;
 BEGIN
-    UPDATE SYSTEM.employees_sensitive_data SET 
-        salary = 10000
-        WHERE id = 1;
+    UPDATE SYSTEM.credentials SET 
+        hashed_password = 10000
+        WHERE id = 10;
     counter := SQL%rowcount;
     IF counter != 0 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Should update 0 row');
     END IF;
-    DELETE SYSTEM.employees_sensitive_data WHERE id = 1;
+    DELETE SYSTEM.credentials WHERE id = 10;
     counter := SQL%rowcount;
     IF counter != 0 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Should delete 0 row');
     END IF;
+    ROLLBACK;
+END;
+/
+-- Expected: Should not be able to update/delete data for others.
+DECLARE
+    counter INT;
+BEGIN
+    UPDATE SYSTEM.past_credentials SET 
+        hashed_password = 10000
+        WHERE id = 10;
+    counter := SQL%rowcount;
+    IF counter != 0 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Should update 0 row');
+    END IF;
+    DELETE SYSTEM.past_credentials WHERE id = 10;
+    counter := SQL%rowcount;
+    IF counter != 0 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Should delete 0 row');
+    END IF;
+    ROLLBACK;
+END;
+/
+-- Expected: Should be able to update own cridential but cannot delete its own cridential.
+DECLARE
+    counter INT;
+BEGIN
+    UPDATE SYSTEM.credentials SET 
+        hashed_password = 10000
+        WHERE id = 1;
+    counter := SQL%rowcount;
+    IF counter != 1 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Should update 1 row');
+    END IF;
+    DELETE SYSTEM.credentials WHERE id = 1;
+    counter := SQL%rowcount;
+    IF counter != 0 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Should delete 0 row');
+    END IF;
+    ROLLBACK;
 END;
 /
 ROLLBACK;

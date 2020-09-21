@@ -10,6 +10,16 @@ BEGIN
         RETURN '';
     END IF;
 
+    employee_id := SYS_CONTEXT('EMPLOYEE_MGMT', 'EMP_ID');
+
     condition := 'employee_id = ' || employee_id;
     RETURN condition;
 END update_credentials_by_employee_ID;
+/
+BEGIN
+    DBMS_RLS.ADD_POLICY(
+        object_name => 'credentials',
+        policy_name => 'update_credentials_by_employee_ID_policy',
+        policy_function => 'update_credentials_by_employee_ID',
+        statement_types => 'update');
+END;

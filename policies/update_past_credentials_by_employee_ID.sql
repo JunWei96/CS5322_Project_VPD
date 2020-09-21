@@ -10,10 +10,17 @@ BEGIN
         RETURN '';
     END IF;
 
-    condition := 'EXISTS (
-            SELECT 1
-            FROM past_credentials pc
-            INNER JOIN credentials cr ON pc.current_credential = cr.id
-            WHERE pc.employee_id = ' || employee_id || ')';
+    RETURN 'EXISTS(
+            SELECT * FROM EMPLOYEES
+            WHERE 1 = 2)';
+
     RETURN condition;
 END update_past_credentials_by_employee_ID;
+/
+BEGIN
+    DBMS_RLS.ADD_POLICY(
+        object_name => 'past_credentials',
+        policy_name => 'update_past_credentials_by_employee_ID_policy',
+        policy_function => 'update_past_credentials_by_employee_ID',
+        statement_types => 'update');
+END;

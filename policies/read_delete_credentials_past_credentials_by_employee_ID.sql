@@ -8,13 +8,15 @@ BEGIN
         RETURN '';
     END IF;
 
-    RETURN '0 = 1)';
+    RETURN 'EXISTS(
+            SELECT * FROM EMPLOYEES
+            WHERE 1 = 2)';
 END read_delete_credentials_past_credentials_by_employee_ID;
 /
 BEGIN
     DBMS_RLS.ADD_POLICY(
         object_name => 'credentials',
-        policy_name => 'read_delete_credentials_past_credentials_by_employee_ID_POLICY',
+        policy_name => 'read_delete_credentials_by_employee_ID_POLICY',
         policy_function => 'read_delete_credentials_past_credentials_by_employee_ID',
         statement_types => 'select,delete');  
 END;
@@ -22,7 +24,8 @@ END;
 BEGIN
     DBMS_RLS.ADD_POLICY(
         object_name => 'past_credentials',
-        policy_name => 'read_delete_credentials_past_credentials_by_employee_ID_POLICY',
+        policy_name => 'read_delete_past_credentials_by_employee_ID_POLICY',
         policy_function => 'read_delete_credentials_past_credentials_by_employee_ID',
         statement_types => 'select,delete');  
 END;
+/
