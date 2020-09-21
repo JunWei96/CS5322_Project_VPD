@@ -25,8 +25,8 @@ BEGIN
             WHERE L.COUNTRY_ID = ' || country_id || ' AND leaves.emp_id= E.id)';
     ELSE 
         RETURN 'EXISTS(
-            SELECT * FROM EMPLOYEES
-            WHERE MANAGER_ID = '|| employee_id||')';
+            SELECT 1 FROM EMPLOYEES E
+            WHERE E.MANAGER_ID = '|| employee_id||' AND e.id = leaves.emp_id)';
     END IF;
    
 END leaves_by_corporation_groups;
