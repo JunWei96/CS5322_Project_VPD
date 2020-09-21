@@ -24,8 +24,8 @@ BEGIN
             WHERE L.COUNTRY_ID = ' || country_id ||' AND E.ID = evaluations.recipient)';
     ELSE 
         RETURN 'EXISTS(
-            SELECT * FROM EMPLOYEES
-            WHERE ID = '|| employee_id ||' OR MANAGER_ID = '|| employee_id||')';
+            SELECT 1 FROM EMPLOYEES E
+            WHERE (E.ID = '|| employee_id ||')AND (evaluations.author = E.ID OR evaluations.recipient = E.ID))';
     END IF;
 END read_evaluation_by_manager_relationship;
 /
@@ -37,4 +37,3 @@ BEGIN
         policy_function => 'read_evaluation_by_manager_relationship',
         statement_types => 'SELECT');
 END;
-    
