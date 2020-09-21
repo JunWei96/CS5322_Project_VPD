@@ -37,3 +37,11 @@ BEGIN
         END IF;
     END IF;
 END read_employee_sensitive_data_by_corporation_groups;
+/
+BEGIN
+    DBMS_RLS.ADD_POLICY(
+        object_name => 'employees_sensitive_data',
+        policy_name => 'read_employee_sensitive_data_by_corporation_groups_POLICY',
+        policy_function => 'read_employee_sensitive_data_by_corporation_groups',
+        statement_types => 'select');  
+END;
