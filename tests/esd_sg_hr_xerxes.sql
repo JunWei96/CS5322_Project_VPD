@@ -6,7 +6,7 @@ SET ROLE NON_SYSTEM, HR;
 DECLARE
     counter INT;
 BEGIN
-    SELECT COUNT('id')
+    SELECT COUNT(E.id)
         INTO counter
         FROM SYSTEM.employees_sensitive_data C
         INNER JOIN SYSTEM.employees E 
@@ -20,7 +20,7 @@ END;
 DECLARE
     counter INT;
 BEGIN
-    SELECT COUNT('salary')
+    SELECT DISTINCT COUNT(salary)
         INTO counter
         FROM SYSTEM.employees_sensitive_data C
         INNER JOIN SYSTEM.employees E 
