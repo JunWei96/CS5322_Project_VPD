@@ -1,5 +1,6 @@
 -- This test file is for the user XERXES with password of XERXES.
 -- XERXES is a HR stationed in Singapore.
+CONNECT XERXES/XERXES;
 SET ROLE NON_SYSTEM, HR;
 
 -- Expected: Should only return the data from all the employees in Singapore.

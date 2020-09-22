@@ -1,5 +1,6 @@
 -- This test file is for the user STAFFORD with password of STAFFORD.
 -- STAFFORD is in finance stationed in Singapore.
+CONNECT STAFFORD/STAFFORD;
 SET ROLE NON_SYSTEM;
 
 -- Expected: Should return employee's current credentials.

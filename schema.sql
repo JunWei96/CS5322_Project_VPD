@@ -103,7 +103,7 @@ CREATE TABLE job_history (
 
 ALTER TABLE employees ADD FOREIGN KEY (manager_id) REFERENCES employees (id);
 
-ALTER TABLE employees ADD FOREIGN KEY (job_id) REFERENCES jobs (id);
+ALTER TABLE employees ADD FOREIGN KEY (job_id) REFERENCES jobs (id) ON DELETE SET NULL;
 
 ALTER TABLE employees ADD FOREIGN KEY (corporation_group_id) REFERENCES corporation_groups (id);
 
@@ -135,4 +135,4 @@ ALTER TABLE corporation_groups ADD FOREIGN KEY (location_id) REFERENCES location
 
 ALTER TABLE job_history ADD FOREIGN KEY (employee_id) REFERENCES employees (id);
 
-ALTER TABLE job_history ADD FOREIGN KEY (job_id) REFERENCES jobs (id);
+ALTER TABLE job_history ADD FOREIGN KEY (job_id) REFERENCES jobs (id) ON DELETE CASCADE;

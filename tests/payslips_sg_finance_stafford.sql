@@ -1,5 +1,6 @@
 -- This test file is for the user STAFFORD with password of STAFFORD.
 -- STAFFORD is a Finance stationed in Singapore.
+CONNECT STAFFORD/STAFFORD;
 SET ROLE NON_SYSTEM;
 SET SERVEROUTPUT ON;
 -- Expected: Should only return the payslip from all the employees in Singapore.
