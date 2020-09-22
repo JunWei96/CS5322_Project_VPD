@@ -6,7 +6,7 @@ SET ROLE NON_SYSTEM;
 DECLARE
     counter INT;
 BEGIN
-    SELECT COUNT('id')
+    SELECT COUNT(E.id)
         INTO counter
         FROM SYSTEM.employees_sensitive_data C
         INNER JOIN SYSTEM.employees E 
@@ -20,13 +20,13 @@ END;
 DECLARE
     counter INT;
 BEGIN
-    SELECT COUNT('salary')
+    SELECT DISTINCT COUNT(C.salary)
         INTO counter
         FROM SYSTEM.employees_sensitive_data C
         INNER JOIN SYSTEM.employees E 
         ON C.id = E.id;
     IF counter != 14 THEN
-        RAISE_APPLICATION_ERROR(-20000, 'Incorrect number of employees.');
+        RAISE_APPLICATION_ERROR(-20000, 'Incorrect number of employees salary.');
     END IF;
 END;
 /

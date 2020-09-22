@@ -17,16 +17,16 @@ BEGIN
     END IF;
 END;
 /
--- Expected: Should only return the salary from all the employees in Singapore.
+-- Expected: Should only return the its own salary.
 DECLARE
     counter INT;
 BEGIN
-    SELECT COUNT('salary')
+    SELECT DISTINCT COUNT(salary)
         INTO counter
         FROM SYSTEM.employees_sensitive_data C
         INNER JOIN SYSTEM.employees E 
         ON C.id = E.id;
-    IF counter != 5 THEN
+    IF counter != 1 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Incorrect number of employees.');
     END IF;
 END;

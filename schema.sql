@@ -19,8 +19,7 @@ CREATE TABLE employees_sensitive_data (
 );
 
 CREATE TABLE credentials (
-  id int PRIMARY KEY,
-  employee_id int UNIQUE,
+  employee_id int PRIMARY KEY,
   hashed_password varchar(255),
   salt varchar(50),
   session_token varchar(100),
@@ -29,7 +28,7 @@ CREATE TABLE credentials (
 
 CREATE TABLE past_credentials (
   id int PRIMARY KEY,
-  current_credential int,
+  employee_id int,
   hashed_password varchar(255),
   salt varchar(50)
 );
@@ -112,7 +111,7 @@ ALTER TABLE employees_sensitive_data ADD FOREIGN KEY (id) REFERENCES employees (
 
 ALTER TABLE credentials ADD FOREIGN KEY (employee_id) REFERENCES employees (id);
 
-ALTER TABLE past_credentials ADD FOREIGN KEY (current_credential) REFERENCES credentials (id);
+ALTER TABLE past_credentials ADD FOREIGN KEY (employee_id) REFERENCES credentials (employee_id) ON DELETE CASCADE;
 
 ALTER TABLE leaves ADD FOREIGN KEY (emp_id) REFERENCES employees (id);
 

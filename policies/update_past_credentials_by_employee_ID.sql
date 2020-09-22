@@ -8,13 +8,9 @@ BEGIN
 
     IF (session_user = 'SYSTEM') THEN
         RETURN '';
+    ELSE
+        RETURN '1=0';
     END IF;
-
-    RETURN 'EXISTS(
-            SELECT * FROM EMPLOYEES
-            WHERE 1 = 2)';
-
-    RETURN condition;
 END update_past_credentials_by_employee_ID;
 /
 BEGIN
