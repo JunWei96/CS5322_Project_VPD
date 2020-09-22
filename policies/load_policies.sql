@@ -1,4 +1,5 @@
 @claims_by_corporation_group.sql
+@Payslip_by_employee_ID.sql
 @create_job_policy.sql
 @read_evaluations_policy.sql
 @update_evaluations_policy.sql
