@@ -6,17 +6,20 @@ CREATE TABLE employees (
   slug varchar(30) UNIQUE,
   full_name varchar(30),
   date_of_birth date,
+  email varchar(50),
+  start_date date
+);
+
+CREATE TABLE employees_sensitive_data (
+  id int PRIMARY KEY,
   address varchar(255),
   phone varchar(50),
-  email varchar(50),
   salary int,
-  start_date date,
   biography varchar(255)
 );
 
 CREATE TABLE credentials (
-  id int PRIMARY KEY,
-  employee_id int UNIQUE,
+  employee_id int PRIMARY KEY,
   hashed_password varchar(255),
   salt varchar(50),
   session_token varchar(100),
@@ -25,7 +28,7 @@ CREATE TABLE credentials (
 
 CREATE TABLE past_credentials (
   id int PRIMARY KEY,
-  current_credential int,
+  employee_id int,
   hashed_password varchar(255),
   salt varchar(50)
 );
@@ -104,9 +107,11 @@ ALTER TABLE employees ADD FOREIGN KEY (job_id) REFERENCES jobs (id);
 
 ALTER TABLE employees ADD FOREIGN KEY (corporation_group_id) REFERENCES corporation_groups (id);
 
+ALTER TABLE employees_sensitive_data ADD FOREIGN KEY (id) REFERENCES employees (id);
+
 ALTER TABLE credentials ADD FOREIGN KEY (employee_id) REFERENCES employees (id);
 
-ALTER TABLE past_credentials ADD FOREIGN KEY (current_credential) REFERENCES credentials (id);
+ALTER TABLE past_credentials ADD FOREIGN KEY (employee_id) REFERENCES credentials (employee_id) ON DELETE CASCADE;
 
 ALTER TABLE leaves ADD FOREIGN KEY (emp_id) REFERENCES employees (id);
 
