@@ -16,6 +16,8 @@ BEGIN
     END IF;
 END;
 /
+/
+/
 -- Expected: Should be able to update/delete payslips from employee in Singapore.
 DECLARE
     counter INT;
