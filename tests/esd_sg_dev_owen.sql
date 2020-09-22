@@ -1,6 +1,7 @@
 -- This test file is for the user OWEN with password of OWEN.
 -- OWEN is a manager in Software Development stationed in Singapore.
 -- Software Development belongs to a normal group type in the HR system.
+CONNECT OWEN/OWEN;
 SET ROLE NON_SYSTEM, MANAGER;
 
 -- Expected: Should only return OWEN's data plus its subordinate's data.

@@ -1,5 +1,6 @@
 -- This test file is for the user DUKE with password of DUKE.
 -- DUKE is an auditor stationed in Singapore.
+CONNECT DUKE/DUKE;
 SET ROLE NON_SYSTEM;
 
 -- Expected: Should his own credential.
