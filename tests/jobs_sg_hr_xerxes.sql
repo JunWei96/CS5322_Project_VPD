@@ -3,7 +3,6 @@
 CONNECT XERXES/XERXES;
 SET ROLE NON_SYSTEM, HR;
 
-
 -- Expected: Should be able to update/delete/insert jobs.
 DECLARE
     counter INT;
@@ -38,4 +37,28 @@ BEGIN
         ROLLBACK;
     END IF;
     ROLLBACK;
+END;
+/
+-- Expected: should be able to see min salary.
+DECLARE
+    counter INT;
+BEGIN
+    SELECT DISTINCT COUNT(min_salary)
+        INTO counter
+        FROM SYSTEM.jobs J;
+    IF counter != 9 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Incorrect number of min salaries.');
+    END IF;
+END;
+/
+-- Expected: should be able to see max salary.
+DECLARE
+    counter INT;
+BEGIN
+    SELECT DISTINCT COUNT(max_salary)
+        INTO counter
+        FROM SYSTEM.jobs J;
+    IF counter != 9 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Incorrect number of max salaries.');
+    END IF;
 END;

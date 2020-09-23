@@ -14,6 +14,7 @@
 @eval_cameron_simple.sql
 @eval_sg_hr_xerxes.sql
 @jobs_sg_hr_xerxes.sql
+@jobs_sg_dev_owen.sql
 @leaves_sg_hr_xerxes.sql
 @payslips_sg_auditor_duke.sql
 @payslips_sg_dev_owen.sql

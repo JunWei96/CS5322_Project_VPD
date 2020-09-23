@@ -1,5 +1,5 @@
 @employee_vpd.sql
-
+/
 -- Create context necessary for securing the database.
 CREATE OR REPLACE CONTEXT EMPLOYEE_MGMT USING EMPLOYEE_VPD;
 /
