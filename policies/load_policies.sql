@@ -10,4 +10,4 @@
 @update_evaluations_policy.sql
 @update_leave_policy.sql
 @update_past_credentials_by_employee_ID.sql
-@read_job_table_policies.sql
+@read_jobs_table_policies.sql

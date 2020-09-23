@@ -1,5 +1,6 @@
 -- This test file is for the user BLAZE  with password of BLAZE.
--- OWEN is a Manager stationed in Singapore.
+-- BLAZE is a Manager stationed in Singapore.
+CONNECT BLAZE/BLAZE
 SET ROLE NON_SYSTEM, MANAGER;
 
 -- Expected: Should only return the evaluations from all the her team in Singapore.
@@ -47,11 +48,13 @@ END;
 DECLARE
     counter INT;
 BEGIN
-    DELETE SYSTEM.leaves WHERE id = 96;
+    DELETE SYSTEM.leaves WHERE id = 77;
     counter := SQL%rowcount;
     IF counter != 1 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Should delete 1 row.' );
-        ROLLBACK;
+    ROLLBACK;
     END IF;
+    ROLLBACK;
 END;
 /
+ROLLBACK;
