@@ -68,6 +68,22 @@ BEGIN
     END IF;
 END update_delete_claims_by_corporation_group;
 /
+CREATE OR REPLACE FUNCTION insert_claims_by_employee_id(v_schema IN VARCHAR2, v_obj IN VARCHAR2)
+RETURN VARCHAR2 AS 
+    condition VARCHAR2(255);
+    sessionUser VARCHAR2(30);
+    employee_id int;
+BEGIN
+    sessionUser := SYS_CONTEXT('USERENV', 'SESSION_USER');
+    employee_id := SYS_CONTEXT('EMPLOYEE_MGMT', 'EMP_ID');
+
+    IF (sessionUser = 'SYSTEM') THEN
+        RETURN '';
+    END IF;
+
+    return 'claims.creator = ' || employee_id;
+END insert_claims_by_employee_id;
+/
 BEGIN
     DBMS_RLS.DROP_POLICY(
         object_name => 'claims',
@@ -78,6 +94,12 @@ BEGIN
     DBMS_RLS.DROP_POLICY(
         object_name => 'claims',
         policy_name => 'update_delete_claims_by_corporation_group_policy');
+END;
+/
+BEGIN
+    DBMS_RLS.DROP_POLICY(
+        object_name => 'claims',
+        policy_name => 'insert_claims_by_employee_id_policy');
 END;
 /
 BEGIN
@@ -94,4 +116,13 @@ BEGIN
         policy_name => 'update_delete_claims_by_corporation_group_policy',
         policy_function => 'update_delete_claims_by_corporation_group',
         statement_types => 'UPDATE,DELETE');
+END;
+/
+BEGIN
+    DBMS_RLS.ADD_POLICY(
+        object_name => 'claims',
+        policy_name => 'insert_claims_by_employee_id_policy',
+        policy_function => 'insert_claims_by_employee_id',
+        statement_types => 'INSERT',
+        update_check => true);
 END;
