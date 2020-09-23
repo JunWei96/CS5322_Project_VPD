@@ -55,4 +55,27 @@ BEGIN
     END IF;
 END;
 /
+-- Expected Should be able to insert claim for himself.
+DECLARE
+    counter INT;
+BEGIN
+    INSERT INTO SYSTEM.claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (101,1,14,20,5997);
+    IF counter != 1 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Should insert 1 row');
+    END IF;
+    ROLLBACK;
+END;
+/
+-- Expected: Should not be able to insert claim for others.
+DECLARE
+    counter INT;
+BEGIN
+    INSERT INTO SYSTEM.claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (101,2,14,20,5997);
+    RAISE_APPLICATION_ERROR(-20000, 'Should not insert row for others');
+    ROLLBACK;
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.put_line('SUCCESS');
+END;
+/
 ROLLBACK;
