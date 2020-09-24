@@ -69,12 +69,12 @@ DECLARE
 BEGIN
     UPDATE SYSTEM.claims SET 
         amount = 10000
-        WHERE id = 42;
+        WHERE id = 5;
     counter := SQL%rowcount;
     IF counter != 0 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Should update 0 row');
     END IF;
-    DELETE SYSTEM.claims WHERE id = 42;
+    DELETE SYSTEM.claims WHERE id = 5;
     counter := SQL%rowcount;
     IF counter != 0 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Should delete 0 row');
