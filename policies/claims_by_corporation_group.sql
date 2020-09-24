@@ -129,6 +129,20 @@ BEGIN
     END IF;
 END update_hr_approved_by_claims;
 /
+CREATE OR REPLACE FUNCTION update_creator_of_claims(v_schema IN VARCHAR2, v_obj IN VARCHAR2)
+RETURN VARCHAR2 AS 
+    condition VARCHAR2(255);
+    sessionUser VARCHAR2(30);
+BEGIN
+    sessionUser := SYS_CONTEXT('USERENV', 'SESSION_USER');
+
+    IF (sessionUser = 'SYSTEM') THEN
+        RETURN '';
+    ELSE
+        return '1=0';
+    END IF;
+END update_creator_of_claims;
+/
 CREATE OR REPLACE FUNCTION delete_not_approved_claims(v_schema IN VARCHAR2, v_obj IN VARCHAR2)
 RETURN VARCHAR2 AS 
     condition VARCHAR2(255);
@@ -213,3 +227,13 @@ BEGIN
         policy_function => 'delete_not_approved_claims',
         statement_types => 'DELETE');
 END;
+/
+BEGIN
+    DBMS_RLS.ADD_POLICY(
+        object_name => 'claims',
+        policy_name => 'update_creator_of_claims_policy',
+        policy_function => 'update_creator_of_claims',
+        sec_relevant_cols => 'creator',
+        statement_types => 'UPDATE');
+END;
+/
