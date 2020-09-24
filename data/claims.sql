@@ -16,7 +16,7 @@ INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (14,9,11,NULL,7222);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (15,13,NULL,20,5323);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (16,2,11,5,9607);
-INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (17,4,NULL,19,7393);
+INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (17,4,NULL,NULL,7393);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (18,5,14,17,5606);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (19,9,13,19,9579);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (20,5,NULL,NULL,8002);
@@ -41,7 +41,7 @@ INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (39,10,11,5,5242);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (40,12,13,10,7987);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (41,15,14,20,9496);
-INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (42,1,14,17,5826);
+INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (42,1,NULL,NULL,5826);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (43,10,NULL,10,8025);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (44,8,12,17,8062);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (45,8,11,17,6295);
@@ -57,7 +57,7 @@ INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (55,12,11,NULL,7148);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (56,4,14,10,6464);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (57,7,13,10,9926);
-INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (58,1,NULL,5,9905);
+INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (58,1,NULL,NULL,9905);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (59,15,14,10,7774);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (60,7,12,19,6119);
 INSERT INTO claims (id,creator,hr_approved_by,finance_approved_by,amount) VALUES (61,19,14,5,7427);
