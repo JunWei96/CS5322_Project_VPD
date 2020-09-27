@@ -19,7 +19,7 @@ INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) 
 INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (17,6,'03-Mar-20','21-Oct-20','compassionate_leave','not_applied');
 INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (18,8,'21-Jan-20','22-Oct-20','mc','not_applied');
 INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (19,19,'31-Jan-20','21-Oct-20','mc','not_applied');
-INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (20,5,'21-Oct-19','21-Oct-20','annual_leave','applied');
+INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application,application_status,cancellation_application) VALUES (20,5,'21-Oct-19','21-Oct-20','annual_leave','applied','approved','applied');
 INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (21,13,'21-Aug-20','21-Oct-20','compassionate_leave','applied');
 INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (22,9,'21-Jul-20','22-Oct-20','compassionate_leave','not_applied');
 INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (23,6,'02-Dec-19','22-Oct-20','annual_leave','not_applied');
@@ -85,9 +85,9 @@ INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) 
 INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (83,6,'07-Apr-20','22-Oct-20','mc','applied');
 INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (84,20,'02-Mar-20','21-Oct-20','compassionate_leave','not_applied');
 INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (85,6,'01-Sep-20','22-Oct-20','compassionate_leave','not_applied');
-INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (86,7,'17-Aug-20','21-Oct-20','mc','applied');
+INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application,application_status,cancellation_application) VALUES (86,7,'17-Aug-20','21-Oct-20','mc','applied','approved','applied');
 INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (87,13,'27-Jun-20','22-Oct-20','compassionate_leave','applied');
-INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (88,7,'24-Jun-20','22-Oct-20','mc','not_applied');
+INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application,application_status) VALUES (88,7,'24-Jun-20','22-Oct-20','mc','applied','approved');
 INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (89,1,'13-Oct-19','22-Oct-20','mc','not_applied');
 INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (90,15,'17-Dec-19','21-Oct-20','compassionate_leave','not_applied');
 INSERT INTO leaves (id,emp_id,start_date,end_date,leave_type,leave_application) VALUES (91,8,'04-Oct-19','21-Oct-20','annual_leave','not_applied');

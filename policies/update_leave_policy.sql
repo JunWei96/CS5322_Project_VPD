@@ -18,7 +18,7 @@ BEGIN
     group_type := SYS_CONTEXT('EMPLOYEE_MGMT', 'GROUP_TYPE');
 
     IF (group_type = 'hr') THEN
-        RETURN 'EXISTS (
+        RETURN 'EXISTS(
             SELECT 1
             FROM EMPLOYEES E
             INNER JOIN CORPORATION_GROUPS CG ON E.CORPORATION_GROUP_ID = CG.ID
@@ -48,16 +48,16 @@ BEGIN
     employee_id := SYS_CONTEXT('EMPLOYEE_MGMT', 'EMP_ID');
     group_type := SYS_CONTEXT('EMPLOYEE_MGMT', 'GROUP_TYPE');
 
-    condition := 'application_status IS NULL OR application_status = rejected';
+    condition := '(leaves.application_status IS NULL OR leaves.application_status = ''rejected'')';
     IF (group_type = 'hr' ) THEN
-        RETURN condition || ' AND EXISTS (
+        RETURN condition || ' AND EXISTS(
             SELECT 1
             FROM EMPLOYEES E
             INNER JOIN CORPORATION_GROUPS CG ON E.CORPORATION_GROUP_ID = CG.ID
             INNER JOIN LOCATIONS L ON L.ID = CG.LOCATION_ID
             WHERE L.COUNTRY_ID = ' || country_id || ' AND leaves.emp_id= E.id)';
     ELSE
-        return 'leaves.emp_id = ' || employee_id || ' AND ' || condition;
+        return condition || ' AND ' || 'leaves.emp_id = ' || employee_id;
     END IF;
 END update_type_start_end_date_remark_leave_application;
 /
@@ -82,16 +82,16 @@ BEGIN
     employee_id := SYS_CONTEXT('EMPLOYEE_MGMT', 'EMP_ID');
     group_type := SYS_CONTEXT('EMPLOYEE_MGMT', 'GROUP_TYPE');
 
-    condition := 'leave_application = applied';
+    condition := 'leave_application = ''applied''';
     IF (group_type = 'hr') THEN
-        RETURN condition || ' AND EXISTS (
+        RETURN condition || ' AND EXISTS(
             SELECT 1
             FROM EMPLOYEES E
             INNER JOIN CORPORATION_GROUPS CG ON E.CORPORATION_GROUP_ID = CG.ID
             INNER JOIN LOCATIONS L ON L.ID = CG.LOCATION_ID
             WHERE L.COUNTRY_ID = ' || country_id || ' AND leaves.emp_id= E.id)';
     ELSIF (is_manager = 1) THEN
-        return condition || ' AND EXISTS (
+        return condition || ' AND EXISTS(
             SELECT 1 FROM EMPLOYEES E
             WHERE E.MANAGER_ID = ' || employee_id || ' AND e.id = leaves.emp_id)';
     ELSE
@@ -112,7 +112,6 @@ BEGIN
     session_user := SYS_CONTEXT('USERENV', 'SESSION_USER');
     country_id := SYS_CONTEXT('EMPLOYEE_MGMT', 'COUNTRY_ID');
     is_manager := SYS_CONTEXT('EMPLOYEE_MGMT', 'IS_MANAGER');
-
     IF (session_user = 'SYSTEM') THEN
         RETURN '';
     END IF;
@@ -120,18 +119,18 @@ BEGIN
     employee_id := SYS_CONTEXT('EMPLOYEE_MGMT', 'EMP_ID');
     group_type := SYS_CONTEXT('EMPLOYEE_MGMT', 'GROUP_TYPE');
 
-    condition := 'application_status = approved';
+    condition := 'application_status = ''approved''';
     IF (group_type = 'hr') THEN
-        RETURN condition || ' AND EXISTS (
+        RETURN condition || ' AND EXISTS(
             SELECT 1
             FROM EMPLOYEES E
             INNER JOIN CORPORATION_GROUPS CG ON E.CORPORATION_GROUP_ID = CG.ID
             INNER JOIN LOCATIONS L ON L.ID = CG.LOCATION_ID
             WHERE L.COUNTRY_ID = ' || country_id || ' AND leaves.emp_id= E.id)';
     ELSIF (is_manager = 1) THEN
-        return condition || ' AND EXISTS (
+        return condition || ' AND EXISTS(
             SELECT 1 FROM EMPLOYEES E
-            WHERE E.MANAGER_ID = '|| employee_id||' AND e.id = leaves.emp_id)';
+            WHERE E.MANAGER_ID = ' || employee_id || ' AND e.id = leaves.emp_id)';
     ELSE
         return condition || ' AND leaves.emp_id = ' || employee_id;
     END IF;
@@ -173,18 +172,18 @@ BEGIN
     employee_id := SYS_CONTEXT('EMPLOYEE_MGMT', 'EMP_ID');
     group_type := SYS_CONTEXT('EMPLOYEE_MGMT', 'GROUP_TYPE');
 
-    condition := 'cancellation_application = applied';
+    condition := 'cancellation_application = ''applied''';
     IF (group_type = 'hr') THEN
-        RETURN condition || ' AND EXISTS (
+        RETURN condition || ' AND EXISTS(
             SELECT 1
             FROM EMPLOYEES E
             INNER JOIN CORPORATION_GROUPS CG ON E.CORPORATION_GROUP_ID = CG.ID
             INNER JOIN LOCATIONS L ON L.ID = CG.LOCATION_ID
             WHERE L.COUNTRY_ID = ' || country_id || ' AND leaves.emp_id= E.id)';
     ELSIF (is_manager = 1) THEN
-        return condition || ' AND EXISTS (
+        return condition || ' AND EXISTS(
             SELECT 1 FROM EMPLOYEES E
-            WHERE E.MANAGER_ID = '|| employee_id||' AND e.id = leaves.emp_id)';
+            WHERE E.MANAGER_ID = ' || employee_id || ' AND e.id = leaves.emp_id)';
     ELSE
         return '1=0';
     END IF;
@@ -225,8 +224,7 @@ BEGIN
         policy_name=> 'update_cancellation_application_leave_policy', 
         policy_function => 'update_cancellation_application_leave',
         sec_relevant_cols => 'cancellation_application',
-        statement_types => 'UPDATE',
-        update_check => TRUE);
+        statement_types => 'UPDATE');
 END;
 /
 BEGIN 
