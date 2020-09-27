@@ -1,4 +1,4 @@
--- Only HR can delete leaves for local employees
+-- Only HR can delete or insert leaves for local employees
 CREATE OR REPLACE FUNCTION delete_insert_leaves(v_schema VARCHAR2, v_bj VARCHAR2)
 RETURN VARCHAR2 AS
     condition VARCHAR2(255);
@@ -27,9 +27,9 @@ BEGIN
     ELSE
         return '1=0';
     END IF;
-END delete_leaves;
+END delete_insert_leaves;
 /
--- hr and employees only allowed to edit these values when application_status is NULL or rejected.
+-- hr and self only allowed to edit these values when application_status is NULL or rejected.
 CREATE OR REPLACE FUNCTION update_type_start_end_date_remark_leave_application(v_schema VARCHAR2, v_bj VARCHAR2)
 RETURN VARCHAR2 AS
     condition VARCHAR2(255);
@@ -57,11 +57,11 @@ BEGIN
             INNER JOIN LOCATIONS L ON L.ID = CG.LOCATION_ID
             WHERE L.COUNTRY_ID = ' || country_id || ' AND leaves.emp_id= E.id)';
     ELSE
-        return 'leaves.emp_id = ' || employee_id ' AND ' || condition;
+        return 'leaves.emp_id = ' || employee_id || ' AND ' || condition;
     END IF;
 END update_type_start_end_date_remark_leave_application;
 /
--- only manager or hr change change application status when employee applied for leave.
+-- only manager or hr can change application status when employee applied for leave.
 CREATE OR REPLACE FUNCTION update_application_status_leave(v_schema VARCHAR2, v_bj VARCHAR2)
 RETURN VARCHAR2 AS
     condition VARCHAR2(255);
@@ -90,10 +90,10 @@ BEGIN
             INNER JOIN CORPORATION_GROUPS CG ON E.CORPORATION_GROUP_ID = CG.ID
             INNER JOIN LOCATIONS L ON L.ID = CG.LOCATION_ID
             WHERE L.COUNTRY_ID = ' || country_id || ' AND leaves.emp_id= E.id)';
-    ELSE IF (is_manager = 1) THEN
+    ELSIF (is_manager = 1) THEN
         return condition || ' AND EXISTS (
             SELECT 1 FROM EMPLOYEES E
-            WHERE E.MANAGER_ID = '|| employee_id ||' AND e.id = leaves.emp_id)';
+            WHERE E.MANAGER_ID = ' || employee_id || ' AND e.id = leaves.emp_id)';
     ELSE
         return '1=0';
     END IF;
@@ -128,7 +128,7 @@ BEGIN
             INNER JOIN CORPORATION_GROUPS CG ON E.CORPORATION_GROUP_ID = CG.ID
             INNER JOIN LOCATIONS L ON L.ID = CG.LOCATION_ID
             WHERE L.COUNTRY_ID = ' || country_id || ' AND leaves.emp_id= E.id)';
-    ELSE IF (is_manager = 1) THEN
+    ELSIF (is_manager = 1) THEN
         return condition || ' AND EXISTS (
             SELECT 1 FROM EMPLOYEES E
             WHERE E.MANAGER_ID = '|| employee_id||' AND e.id = leaves.emp_id)';
@@ -144,17 +144,15 @@ RETURN VARCHAR2 AS
     session_user VARCHAR2(30);
 BEGIN
     session_user := SYS_CONTEXT('USERENV', 'SESSION_USER');
-    country_id := SYS_CONTEXT('EMPLOYEE_MGMT', 'COUNTRY_ID');
-    is_manager := SYS_CONTEXT('EMPLOYEE_MGMT', 'IS_MANAGER');
 
     IF (session_user = 'SYSTEM') THEN
         RETURN '';
     ELSE
-        return '1=0'
+        return '1=0';
     END IF;
 END update_emp_id_leave;
 /
--- only hr or manager can update this cancellation application.
+-- only hr or manager can update this cancellation_status AND when cacellation_application = applied.
 CREATE OR REPLACE FUNCTION update_cancellation_status_leave(v_schema VARCHAR2, v_bj VARCHAR2)
 RETURN VARCHAR2 AS
     condition VARCHAR2(255);
@@ -176,14 +174,14 @@ BEGIN
     group_type := SYS_CONTEXT('EMPLOYEE_MGMT', 'GROUP_TYPE');
 
     condition := 'cancellation_application = applied';
-    IF (group_type = 'hr' or is_manager = 1) THEN
+    IF (group_type = 'hr') THEN
         RETURN condition || ' AND EXISTS (
             SELECT 1
             FROM EMPLOYEES E
             INNER JOIN CORPORATION_GROUPS CG ON E.CORPORATION_GROUP_ID = CG.ID
             INNER JOIN LOCATIONS L ON L.ID = CG.LOCATION_ID
             WHERE L.COUNTRY_ID = ' || country_id || ' AND leaves.emp_id= E.id)';
-    ELSE IF (is_manager = 1) THEN
+    ELSIF (is_manager = 1) THEN
         return condition || ' AND EXISTS (
             SELECT 1 FROM EMPLOYEES E
             WHERE E.MANAGER_ID = '|| employee_id||' AND e.id = leaves.emp_id)';
@@ -206,7 +204,7 @@ BEGIN
         object_name => 'LEAVES',
         policy_name=> 'update_type_start_end_date_remark_leave_application_policy', 
         policy_function => 'update_type_start_end_date_remark_leave_application',
-        sec_relevant_cols => 'type,start_date,end_date,leave_application, remark',
+        sec_relevant_cols => 'leave_type,start_date,end_date,leave_application,remark',
         statement_types => 'UPDATE',
         update_check => TRUE);
 END;

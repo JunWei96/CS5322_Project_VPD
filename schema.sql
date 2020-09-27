@@ -36,11 +36,14 @@ CREATE TABLE past_credentials (
 CREATE TABLE leaves (
   id int PRIMARY KEY,
   emp_id int,
-  leave_type varchar(20) not null check (leave_type in ('mc', 'annual_leave', 'compassionate_leave')),
   start_date date,
   end_date date,
-  status varchar(20) not null check (status in ('not_applied', 'applied', 'approved', 'rejected', 'obselete')),
-  remark varchar(255)
+  remark varchar(255),
+  leave_type varchar(20) not null check (leave_type in ('mc', 'annual_leave', 'compassionate_leave')),
+  leave_application varchar(20) DEFAULT 'not_applied' not null check (leave_application in ('not_applied', 'applied')),
+  application_status varchar(20) check (application_status in ('approved', 'rejected', 'obselete')),
+  cancellation_application varchar(20) DEFAULT 'not_applied' not null check (cancellation_application in ('not_applied', 'applied')),
+  cancellation_status varchar(20) check (cancellation_status in ('approved', 'rejected'))
 );
 
 CREATE TABLE evaluations (
