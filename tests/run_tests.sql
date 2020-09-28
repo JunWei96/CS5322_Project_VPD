@@ -18,6 +18,7 @@
 @leaves_sg_hr_xerxes.sql
 @leaves_sg_dev_owen.sql
 @leaves_sg_finance_stafford.sql
+@leaves_sg_dev_mack.sql
 @payslips_sg_auditor_duke.sql
 @payslips_sg_dev_owen.sql
 @payslips_sg_finance_stafford.sql

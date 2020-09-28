@@ -58,11 +58,11 @@ GRANT DELETE ON jobs TO NON_SYSTEM;
 GRANT INSERT ON credentials TO NON_SYSTEM;
 GRANT INSERT ON past_credentials TO NON_SYSTEM;
 GRANT INSERT ON claims TO NON_SYSTEM;
+GRANT INSERT ON leaves to NON_SYSTEM;
 
 DROP ROLE MANAGER;
 CREATE ROLE MANAGER;
 GRANT INSERT ON evaluations TO MANAGER;
-GRANT INSERT ON leaves to MANAGER;
 
 DROP ROLE HR;
 CREATE ROLE HR;
@@ -80,7 +80,6 @@ GRANT DELETE ON job_history TO HR;
 
 GRANT INSERT ON employees TO HR;
 GRANT INSERT ON employees_sensitive_data TO HR;
-GRANT INSERT ON leaves TO HR;
 GRANT INSERT ON payslips TO HR;
 GRANT INSERT ON countries TO HR;
 GRANT INSERT ON locations TO HR;
@@ -112,7 +111,7 @@ GRANT MANAGER TO STAFFORD;
 INSERT INTO employees (id,manager_id,job_id,corporation_group_id,slug,full_name,date_of_birth,email,start_date) VALUES (6,2,2,4,'NORMAN','Keely S. Norman','16-Dec-92','norman@gmail.com','06-Nov-19');
 CREATE USER NORMAN IDENTIFIED BY NORMAN;
 GRANT NON_SYSTEM TO NORMAN;
-INSERT INTO employees (id,manager_id,job_id,corporation_group_id,slug,full_name,date_of_birth,email,start_date) VALUES (7,1,4,5,'MACK','Dillon H. Mack','07-Oct-89','mack@gmail.com','08-Apr-21');
+INSERT INTO employees (id,manager_id,job_id,corporation_group_id,slug,full_name,date_of_birth,email,start_date) VALUES (7,1,4,4,'MACK','Dillon H. Mack','07-Oct-89','mack@gmail.com','08-Apr-21');
 CREATE USER MACK IDENTIFIED BY MACK;
 GRANT NON_SYSTEM TO MACK;
 INSERT INTO employees (id,manager_id,job_id,corporation_group_id,slug,full_name,date_of_birth,email,start_date) VALUES (8,1,3,9,'MACON','Macon X. Tate','22-Jun-92','macon@gmail.com','24-Sep-19');
