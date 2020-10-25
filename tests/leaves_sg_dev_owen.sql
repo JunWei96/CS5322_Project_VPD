@@ -61,7 +61,7 @@ DECLARE
 BEGIN
     UPDATE SYSTEM.leaves SET 
         application_status = 'approved'
-        WHERE id = 81;
+        WHERE id = 81; -- non-surbordinate
     counter := SQL%rowcount;
     IF counter != 0 THEN
         RAISE_APPLICATION_ERROR(-20000, 'Should update 0 row');

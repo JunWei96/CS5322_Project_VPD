@@ -140,4 +140,22 @@ BEGIN
         ROLLBACK;
     END IF;
 END;
+/
+-- employee can apply for leave for himself.
+DECLARE
+    counter INT;
+BEGIN
+    UPDATE SYSTEM.leaves SET 
+        leave_application = 'applied'
+        WHERE id = 79;
+    counter := SQL%rowcount;
+    IF counter != 1 THEN
+        RAISE_APPLICATION_ERROR(-20000, 'Should update 1 row');
+        ROLLBACK;
+    END IF;
+    ROLLBACK;
+END;
+
+select * from SYSTEM.leaves where id = 79;
+
 
